@@ -10,12 +10,12 @@ freedisk=$(df -Bm | grep '^/dev/' | grep -v '/boot$' | awk '{ft = ft + $2} END {
 procdisk=$(df -Bm | grep '^/dev/' | grep -v '/boot$' | awk '{ut = ut + $3} {ft = ft + $2} END {printf("%d"), ut/ft*100}')
 cpuload=$(top -bn1 | grep '^%Cpu' | cut -c 9- | xargs | awk '{printf("%.1f%%"), $1 + $3}')
 lastboot=$(who -b | awk '$1 == "system" {printf $3 " " $4} ')
-lvmusr=$(if [$lvmt -eq 0]; then echo no; else echo yes; fi)
+lvmusr=$(if [ $lvmt -eq 0 ]; then echo no; else echo yes; fi)
 tcpconnects=$(cat /proc/net/sockstat{,6} | awk '$1 == "TCP:" {printf $3}')
 userlog=$(users | wc -w)
 ipstats=$(hostname -I)
 macadress=$(ip link show | awk '$1 == "link/ether" {print $2}')
-sudouser=${journalctl _COMM=sudo | grep COMMAND | wc -l}
+sudouser=$(journalctl _COMM=sudo | grep COMMAND | wc -l)
 wall "#Architecture: $archit
         #CPU psychical: $cpuinfo
         #vCPU: $cpucore
