@@ -17,7 +17,7 @@ userlog=$(users | wc -w)
 ipstats=$(hostname -I)
 macadress=$(ip link show | awk '$1 == "link/ether" {print $2}')
 sudouser=$(journalctl _COMM=sudo | grep COMMAND | wc -l)
-wall "#Architecture: $archit
+wall "  #Architecture: $archit
         #CPU psychical: $cpuinfo
         #vCPU: $cpucore
         #Memory Usage: $memfree/${memuse}MB ($procentage%)
